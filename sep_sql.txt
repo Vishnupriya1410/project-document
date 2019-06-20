@@ -1,0 +1,66 @@
+create database EconomySharingPlatform;
+
+ 
+
+
+
+use EconomySharingPlatform;
+
+ 
+
+
+
+create table UserRegistration(
+
+FirstName Text(50)Not Null,LastName Text(50)Not NUll,
+
+Age Numeric(2)Not Null,Gender ENUM ('Female','male') NOT NULL,ContactNumber Text(10),
+
+UserID varchar(15) Primary Key Not Null,Password Text(15) Not Null);
+
+ 
+
+
+
+create table VendorRegistration
+
+(FirstName varchar(50)NOT NULL,LastName varchar(50)NOT NULL,Age int(2),Gender varchar(15)NOT NULL,
+
+ContactNumber varchar(10)NOT NULL,VendorUserId VARCHAR(15)Not Null,Password varchar(15)NOT NULL,primary key(VendorUserId));
+
+ 
+
+
+create table VendorDetails
+
+(VendorUserId varchar(15),VendorId int(15)Not Null,Email varchar(30),Address varchar(15),City varchar(50),
+
+ZipCode int(10),LandLine int(10), OtherContactInfo varchar(100),
+
+Foreign Key(VendorUserId) references VendorRegistration(VendorUserId));         
+  
+
+
+ 
+
+ALTER TABLE VendorDetails CHANGE VendorId VendorId INT(15) AUTO_INCREMENT PRIMARY KEY;
+
+
+
+ 
+
+create table ProductDetails
+
+(ProductId varchar(10),ProductName varchar(15),category varchar(15),VendorId int(15) Not null,
+
+availability varchar(15),cost int(15),Foreign key(VendorId) references VendorDetails(VendorId));
+
+ 
+
+
+
+create table ServiceDetails
+
+(VendorId int(15)Not Null,serviceId int(10)not null,category varchar(30),timeSlot varchar(30),availability varchar(15),cost int(20),
+
+Foreign key(VendorId) references VendorDetails(VendorId));
